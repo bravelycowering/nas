@@ -1,2 +1,3 @@
-# nas
-For NAS related stuff
+# Random Not Awesome Script Stuff
+
+* [Manipulating argument parsing](Manipulating argument parsing.md)

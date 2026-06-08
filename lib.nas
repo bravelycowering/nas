@@ -263,7 +263,7 @@ quit
 	set Item:TONAME[b] B
 	set Item:TONAME[n] N
 	set Item:TONAME[m] M
-	set Item:TONAME[_] {} {}
+	set Item:TONAME[_] { } { }
 	set Item:VALIDCHARS QWERTYUIOPASDFGHJKLZXCVBNM1234567890-'#$?_ .
 	set Item:IDCONVERTCHARS qwertyuiopasdfghjklzxcvbnm
 	set Item:setup true
@@ -422,7 +422,7 @@ quit
 	quit
 	#Item:items.showlist
 	msg &eYour items:
-	set l_str &f> {}
+	set l_str &f> { }
 	set l_firstitem true
 	set l_i 0
 	#Item:items._loop
