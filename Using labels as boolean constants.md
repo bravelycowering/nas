@@ -4,7 +4,7 @@ todo: write this and make the example make sense
 
 um so basically you define a label and then check if it exists idfk
 
-```c
+```q
 #MOVABLE[141]
 #MOVABLE[142]
 #MOVABLE[143]
