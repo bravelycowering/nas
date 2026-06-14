@@ -1,6 +1,7 @@
 using local_packages
 
 include os/shinyiris+towerlib
+include os/bravelycowering+lib
 
 #onJoin
 	call #CTOHLib_Init
@@ -213,11 +214,6 @@ quit
 	msg Practice mode: &cOFF
 jump #resetTime
 
-#parseTime
-	setdiv {runArg1} 1000
-	set {runArg1} {{runArg1}}s
-quit
-
 #getNSuffixOverride[11]
 #getNSuffixOverride[12]
 #getNSuffixOverride[13]
@@ -248,15 +244,15 @@ quit
 	if ctohlib.is.in.practice.mode jump #winPractice
 	set final {epochMS}
 	setsub final {startMS}
-	call #parseTime|final
+	call #Time:settimer|final
 	call #tryAddSelfToClearList|clearNumber
 	if clearNumber|=|"false" jump #localmsgClearNumber_end
 		call #getNSuffix|clearNumber
 		localmsg chat @color@p&7 becaome the &6{clearNumber}&7 person to complete &b{LevelName}&7!
 	#localmsgClearNumber_end
 	cpemsg announce &aCongrats on making it to the top!
-	cpemsg smallannounce &fYou had a time of &6{final}&f.
-	msg &fYou completed &b{LevelName}&7 in &6{final}&f.
+	cpemsg smallannounce &fYou had a time of &6{final.Timer}&f.
+	msg &fYou completed &b{LevelName}&7 in &6{final.Timer}&f.
 quit
 
 #winPractice

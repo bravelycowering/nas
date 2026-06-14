@@ -491,3 +491,40 @@ quit
 #Item:_donthave
 	msg &cYou dont have any item called "{l_id}".
 quit
+
+////////////////////////////////////////////////////////////////
+//                        Highscores                          //
+////////////////////////////////////////////////////////////////
+
+// score format:
+// ;name+number;name+number
+// if table|has|";@p"
+
+// call #Scores:display|{X} {Y} {Z}|{range}|<#printer|{n}|{username}|{score}>?
+// displays the scores from a table using an optional callback label
+// for formatting
+#Scores:display
+	if runArg2|=|"" set l_Scores:printer #Scores:display._defaultprinter
+	else set l_Scores:printer {runArg2}
+	set l_Scores:location {runArg1}
+	set l_Scores:i 0
+	setblockmessage l_Scores:table {l_Scores:location}
+	setsplit l_Scores:table ;
+	if l_Scores:table.Length|=|0 jump #Scores:display._loopend
+	#Scores:display._loop
+		setsplit l_Scores:table[{l_Scores:i}] +
+		call {l_Scores:printer}|{l_Scores:i}|{l_Scores:table[{l_Scores:i}][0]}+|{l_Scores:table[{l_Scores:i}][1]}
+		setadd l_Scores:i 1
+	if l_Scores:i|<|l_Scores:table.Length jump #Scores:display._loop
+	#Scores:display._loopend
+quit
+
+#Scores:display._defaultprinter
+	msg {runArg1}. &f{runArg2}&7 - &a{runArg3}
+quit
+
+// call #Scores:add|{X} {Y} {Z}|{score}|{maxcapacity}
+// adds a score for the current player to the table specified with an
+// optional maximum amount of scores allowed to be stored
+#Scores:add
+	
