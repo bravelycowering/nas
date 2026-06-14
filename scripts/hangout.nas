@@ -220,7 +220,6 @@ quit
 	call #Item:sethas|l_has|{l_itemid}
 	if l_has effect puff {coords[0]} {coords[1]} {coords[2]} 0 -1 0
 	else effect exclamation {coords[0]} {coords[1]} {coords[2]} 0 -1 0
-	if l_has msg &7You've already found the item that was here!
 	call #Item:give|{l_itemid}
 quit
 
