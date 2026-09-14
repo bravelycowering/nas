@@ -24,6 +24,7 @@ quit
 
 	if label #FIRESTARTER[{LastStandOnID}] call #ignite|{LastMBCoords}
 	if StandInID|=|54 kill @color@nick&7 went up in &cflames!
+	if StandOnID|=|41 call #checkpoint
 
 	// set the last coords
 	set LastMBCoords {MBCoords}
@@ -49,14 +50,17 @@ quit
 #ignite
 	setrandrangedecimal l_pitch 0.9 1.1
 	cs pos {runArg1} fire light:pitch({l_pitch})
-	effect fire {runArg1} 0 0 0
-	effect fire {runArg1} 0 0 0
-	effect fire {runArg1} 0 0 0
-	effect fire {runArg1} 0 0 0
-	effect fire {runArg1} 0 0 0
 	effect puff {runArg1} 0 0 0
 	effect puff {runArg1} 0 0 0
 	effect puff {runArg1} 0 0 0
 	effect puff {runArg1} 0 0 0
 	effect puff {runArg1} 0 0 0
 jump #placetempblock|54|{runArg1}
+
+#checkpoint
+	if Checkpoint|=|runArg1 quit
+	cs me levelclear:cut(0.2):pitch(-0.5):echo(0.2,0.9)
+	set Checkpoint {runArg1}
+	setspawn {runArg1}
+	setdeathspawn {runArg1}
+quit
