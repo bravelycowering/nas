@@ -81,6 +81,9 @@ jump #placetempblock|54|{runArg1}
 	set Checkpoint {runArg1}
 	setspawn {runArg1}
 	setdeathspawn {runArg1} 0 0
+	setsplit runArg1 " "
+	setsub runArg1[1] 1
+	call #placetempblock|42|{runArg1[0]} {runArg1[1]} {runArg1[2]}
 jump #commitchanges
 
 // call #crunch|{X} {Y} {Z}
