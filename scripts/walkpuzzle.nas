@@ -47,7 +47,7 @@ jump #undochanges
 // call #placetempblock|{block}|{X} {Y} {Z}
 #placetempblock
 	set l_id {runArg1}
-	call #settempblock|{l_oldid}|{runArg2}
+	call #settempblock|l_oldid|{runArg2}
 	if WorldChanges.Last[{l_p}]|=|"" set WorldChanges {WorldChanges}|{l_p}
 	if WorldChanges.Last[{l_p}]|=|"" set WorldChanges.Last[{l_p}] {l_oldid}
 	tempblock {l_id} {l_c}
