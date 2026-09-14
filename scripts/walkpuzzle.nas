@@ -77,18 +77,25 @@ jump #placetempblock|54|{runArg1}
 // call #checkpoint|{X} {Y} {Z}
 #checkpoint
 	if Checkpoint|=|runArg1 quit
+	setsplit runArg1 " "
+	setsub runArg1[1] 1
+	set l_cc {runArg1[0]} {runArg1[1]} {runArg1[2]}
+	setblockmessage l_require l_cc
+	if WorldChanges.Crunches|<|l_require cs me vote failed:choose(1):volume(2)
+	if WorldChanges.Crunches|<|l_require msg &cNot enough snow crunched...
+	if WorldChanges.Crunches|<|l_require quit
 	cs me levelclear:cut(0.2):pitch(-0.5):echo(0.2,0.9)
 	set Checkpoint {runArg1}
 	setspawn {runArg1}
 	setdeathspawn {runArg1} 0 0
-	setsplit runArg1 " "
-	setsub runArg1[1] 1
-	call #placetempblock|42|{runArg1[0]} {runArg1[1]} {runArg1[2]}
+	call #placetempblock|0|{runArg1}
+	call #placetempblock|42|{l_cc}
 jump #commitchanges
 
 // call #crunch|{X} {Y} {Z}
 #crunch
 	cs pos {runArg1} snow:skip(0.1):pitch(1.5)
+	setadd WorldChanges.Crunches 1
 jump #placetempblock|53|{runArg1}
 
 // call #undochanges
