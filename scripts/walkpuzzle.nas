@@ -25,7 +25,7 @@ quit
 	call #settempblock|LastStandOnID|{LastMBCoords[0]} {LastMBCoords[1]} {LastMBCoords[2]}
 
 	if label #FIRESTARTER[{LastStandOnID}] call #ignite|{LastMBCoords}
-	if StandInID|=|54 kill
+	if StandInID|=|54 call #reset
 	if StandOnID|=|41 call #checkpoint|{MBCoords}
 	if StandInID|=|766 call #crunch|{MBCoords}
 
@@ -40,8 +40,8 @@ quit
 // call #reset
 #reset
 #input_reset
-
-quit
+	kill
+jump #undochanges
 
 // call #placetempblock|{block}|{X} {Y} {Z}
 #placetempblock
@@ -80,7 +80,7 @@ jump #placetempblock|54|{runArg1}
 	set Checkpoint {runArg1}
 	setspawn {runArg1}
 	setdeathspawn {runArg1} 0 0
-quit
+jump #commitchanges
 
 // call #crunch|{X} {Y} {Z}
 #crunch
