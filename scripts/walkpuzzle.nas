@@ -100,5 +100,5 @@ jump #placetempblock|53|{runArg1}
 // call #commitchanges
 #commitchanges
 	set WorldChanges
-	resetdata WorldChanges*
+	resetdata packages WorldChanges*
 quit
