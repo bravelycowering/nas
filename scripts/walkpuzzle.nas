@@ -24,7 +24,7 @@ quit
 
 	if label #FIRESTARTER[{LastStandOnID}] call #ignite|{LastMBCoords}
 	if StandInID|=|54 kill @color@nick&7 went up in &cflames!
-	if StandOnID|=|41 call #checkpoint
+	if StandOnID|=|41 call #checkpoint|{MBCoords}
 
 	// set the last coords
 	set LastMBCoords {MBCoords}
