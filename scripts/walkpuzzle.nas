@@ -22,6 +22,7 @@ quit
 	setsub LastMBCoords[1] 1
 	call #settempblock|LastStandOnID|{LastMBCoords[0]} {LastMBCoords[1]} {LastMBCoords[2]}
 
+	if label #FIRESTARTER[{LastStandOnID}] cs pos {LastMBCoords} fire light
 	if label #FIRESTARTER[{LastStandOnID}] call #placetempblock|54|{LastMBCoords}
 	if StandInID|=|54 kill @color@nick&7 went up in &cflames!
 
@@ -32,7 +33,7 @@ quit
 // call #placetempblock|{block}|{X} {Y} {Z}
 #placetempblock
 	set l_c {runArg2}
-	setsplit l_c
+	setsplit l_c " "
 	tempblock {runArg1} {l_c}
 	set World[{l_c[0]},{l_c[1]},{l_c[2]}] {runArg1}
 quit
@@ -40,7 +41,7 @@ quit
 // call #settempblock|pkg|{X} {Y} {Z}
 #settempblock
 	set l_c {runArg2}
-	setsplit l_c
+	setsplit l_c " "
 	set {runArg1} {World[{l_c[0]},{l_c[1]},{l_c[2]}]}
 	if {runArg1}|=|"" setblockid {runArg1} {runArg2}
 quit
