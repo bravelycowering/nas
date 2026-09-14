@@ -80,7 +80,7 @@ jump #placetempblock|54|{runArg1}
 	setsplit runArg1 " "
 	setsub runArg1[1] 1
 	set l_cc {runArg1[0]} {runArg1[1]} {runArg1[2]}
-	setblockmessage l_require l_cc
+	setblockmessage l_require {l_cc}
 	if WorldChanges.Crunches|<|l_require cs me vote failed:choose(1):volume(2)
 	if WorldChanges.Crunches|<|l_require msg &cNot enough snow crunched...
 	if WorldChanges.Crunches|<|l_require quit
