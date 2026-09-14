@@ -13,12 +13,6 @@ quit
 
 #onCoordChanged
 
-	ifnot IgnoreNextChange jump #onCoordChanged.skipIgnore
-		set IgnoreNextChange
-		set LastMBCoords {MBCoords}
-		quit
-	#onCoordChanged.skipIgnore
-
 	call #settempblock|StandInID|{MBCoords}
 
 	setsplit MBCoords " "
@@ -47,7 +41,7 @@ quit
 // call #reset
 #reset
 #input_reset
-	set IgnoreNextChange true
+	set LastMBCoords {PlayerCoords}
 	kill
 jump #undochanges
 
