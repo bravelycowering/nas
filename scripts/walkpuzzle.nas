@@ -22,8 +22,7 @@ quit
 	setsub LastMBCoords[1] 1
 	call #settempblock|LastStandOnID|{LastMBCoords[0]} {LastMBCoords[1]} {LastMBCoords[2]}
 
-	if label #FIRESTARTER[{LastStandOnID}] cs pos {LastMBCoords} fire light
-	if label #FIRESTARTER[{LastStandOnID}] call #placetempblock|54|{LastMBCoords}
+	if label #FIRESTARTER[{LastStandOnID}] call #ignite|{LastMBCoords}
 	if StandInID|=|54 kill @color@nick&7 went up in &cflames!
 
 	// set the last coords
@@ -45,3 +44,19 @@ quit
 	set {runArg1} {World[{l_c[0]},{l_c[1]},{l_c[2]}]}
 	if {runArg1}|=|"" setblockid {runArg1} {runArg2}
 quit
+
+// call #ignite|{X} {Y} {Z}
+#ignite
+	setrandrangedecimal l_pitch 0.9 1.1
+	cs pos {runArg1} fire light:pitch({l_pitch})
+	effect fire {runArg1} 0 0 0
+	effect fire {runArg1} 0 0 0
+	effect fire {runArg1} 0 0 0
+	effect fire {runArg1} 0 0 0
+	effect fire {runArg1} 0 0 0
+	effect puff {runArg1} 0 0 0
+	effect puff {runArg1} 0 0 0
+	effect puff {runArg1} 0 0 0
+	effect puff {runArg1} 0 0 0
+	effect puff {runArg1} 0 0 0
+jump #placetempblock|54|{runArg1}
