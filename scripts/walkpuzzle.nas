@@ -96,6 +96,7 @@ jump #placetempblock|53|{runArg1}
 	#undochanges.loop
 		setsplit WorldChanges[{l_i}] ,
 		tempblock {WorldChanges.Last[{WorldChanges[{l_i}]}]} {WorldChanges[{l_i}][0]} {WorldChanges[{l_i}][1]} {WorldChanges[{l_i}][2]}
+		setadd l_i 1
 	if l_i|<|WorldChanges.Length jump #undochanges.loop
 // call #commitchanges
 #commitchanges
