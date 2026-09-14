@@ -62,5 +62,5 @@ jump #placetempblock|54|{runArg1}
 	cs me levelclear:cut(0.2):pitch(-0.5):echo(0.2,0.9)
 	set Checkpoint {runArg1}
 	setspawn {runArg1}
-	setdeathspawn {runArg1}
+	setdeathspawn {runArg1} 0 0
 quit
