@@ -5,6 +5,7 @@ using local_packages
 
 #onJoin
 	coordchangedevent sync register #onCoordChanged
+	definehotkey reset|R
 	set LastMBCoords {PlayerCoords}
 	set Checkpoint {PlayerCoords}
 quit
@@ -24,7 +25,7 @@ quit
 	call #settempblock|LastStandOnID|{LastMBCoords[0]} {LastMBCoords[1]} {LastMBCoords[2]}
 
 	if label #FIRESTARTER[{LastStandOnID}] call #ignite|{LastMBCoords}
-	if StandInID|=|54 kill @color@nick&7 went up in &cflames!
+	if StandInID|=|54 kill
 	if StandOnID|=|41 call #checkpoint|{MBCoords}
 	if StandInID|=|766 call #crunch|{MBCoords}
 
@@ -32,19 +33,32 @@ quit
 	set LastMBCoords {MBCoords}
 quit
 
+#input
+	if label #input_{runArg1} jump #input_{runArg1}
+quit
+
+// call #reset
+#reset
+#input_reset
+
+quit
+
 // call #placetempblock|{block}|{X} {Y} {Z}
 #placetempblock
-	set l_c {runArg2}
-	setsplit l_c " "
-	tempblock {runArg1} {l_c}
-	set World[{l_c[0]},{l_c[1]},{l_c[2]}] {runArg1}
+	set l_id {runArg1}
+	call #settempblock|l_oldid|{runArg2}
+	if WorldChanges.Last[{l_p}]|=|"" set WorldChanges {WorldChanges}|{l_p}
+	if WorldChanges.Last[{l_p}]|=|"" set WorldChanges.Last[{l_p}] {l_oldid}
+	tempblock {l_id} {l_c}
+	set World[{l_p}] {l_id}
 quit
 
 // call #settempblock|pkg|{X} {Y} {Z}
 #settempblock
 	set l_c {runArg2}
 	setsplit l_c " "
-	set {runArg1} {World[{l_c[0]},{l_c[1]},{l_c[2]}]}
+	set l_p {l_c[0]},{l_c[1]},{l_c[2]}
+	set {runArg1} {World[{l_p}]}
 	if {runArg1}|=|"" setblockid {runArg1} {runArg2}
 quit
 
@@ -72,3 +86,17 @@ quit
 #crunch
 	cs pos {runArg1} snow:skip(0.1):pitch(1.5)
 jump #placetempblock|53|{runArg1}
+
+// call #undochanges
+#undochanges
+	setsplit WorldChanges |
+	if WorldChanges.Length|=|0 quit
+	set l_i 0
+	#undochanges.loop
+		tempblock {WorldChanges.Last[{WorldChanges[{l_i}]}]} {WorldChanges[{l_i}]}
+	if l_i|<|WorldChanges.Length jump #undochanges.loop
+// call #commitchanges
+#commitchanges
+	set WorldChanges
+	resetdata WorldChanges*
+quit
