@@ -6,6 +6,7 @@ using local_packages
 #onJoin
 	coordchangedevent sync register #onCoordChanged
 	set LastMBCoords {PlayerCoords}
+	set Checkpoint {PlayerCoords}
 quit
 
 #onCoordChanged
@@ -25,6 +26,7 @@ quit
 	if label #FIRESTARTER[{LastStandOnID}] call #ignite|{LastMBCoords}
 	if StandInID|=|54 kill @color@nick&7 went up in &cflames!
 	if StandOnID|=|41 call #checkpoint|{MBCoords}
+	if StandInID|=|766 call #crunch|{MBCoords}
 
 	// set the last coords
 	set LastMBCoords {MBCoords}
@@ -57,6 +59,7 @@ quit
 	effect puff {runArg1} 0 0 0
 jump #placetempblock|54|{runArg1}
 
+// call #checkpoint|{X} {Y} {Z}
 #checkpoint
 	if Checkpoint|=|runArg1 quit
 	cs me levelclear:cut(0.2):pitch(-0.5):echo(0.2,0.9)
@@ -64,3 +67,8 @@ jump #placetempblock|54|{runArg1}
 	setspawn {runArg1}
 	setdeathspawn {runArg1} 0 0
 quit
+
+// call #crunch|{X} {Y} {Z}
+#crunch
+	cs pos {runArg1} snow:skip(0.1):pitch(1.5)
+jump #placetempblock|53|{runArg1}
