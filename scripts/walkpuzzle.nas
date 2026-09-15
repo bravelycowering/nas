@@ -13,6 +13,9 @@ quit
 
 #onCoordChanged
 
+	if IgnoreMovement set LastMBCoords {MBCoords}
+	if IgnoreMovement quit
+
 	call #settempblock|StandInID|{MBCoords}
 
 	setsplit MBCoords " "
@@ -41,10 +44,9 @@ quit
 // call #reset
 #reset
 #input_reset
-	set LastMBCoords {Checkpoint}
-	msg {PlayerCoords}
+	set IgnoreMovement true
 	kill
-	msg {PlayerCoords}
+	set IgnoreMovement
 jump #undochanges
 
 // call #placetempblock|{block}|{X} {Y} {Z}
