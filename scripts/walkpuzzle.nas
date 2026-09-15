@@ -66,14 +66,23 @@ quit
 
 // call #ignite|{X} {Y} {Z}
 #ignite
+	call #settempblock|l_id|{runArg1}
 	setrandrangedecimal l_pitch 0.9 1.1
-	cs pos {runArg1} fire light:pitch({l_pitch})
-	effect puff {runArg1} 0 0 0
-	effect puff {runArg1} 0 0 0
-	effect puff {runArg1} 0 0 0
-	effect puff {runArg1} 0 0 0
-	effect puff {runArg1} 0 0 0
-jump #placetempblock|54|{runArg1}
+	effect puff {l_c} 0 0 0
+	effect puff {l_c} 0 0 0
+	effect puff {l_c} 0 0 0
+	effect puff {l_c} 0 0 0
+	effect puff {l_c} 0 0 0
+	ifnot l_id|=|765 jump #ignite.endsnowstove
+		effect fire {l_c} 0 0 0
+		effect fire {l_c} 0 0 0
+		effect fire {l_c} 0 0 0
+		effect fire {l_c} 0 0 0
+		cs pos {l_c} icicle melt:pitch({l_pitch})
+	jump #placetempblock|0|{l_c}
+	cs pos {l_c} fire light:pitch({l_pitch})
+	#ignite.endsnowstove
+jump #placetempblock|54|{l_c}
 
 // call #checkpoint|{X} {Y} {Z}
 #checkpoint
