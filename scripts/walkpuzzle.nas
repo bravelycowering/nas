@@ -42,7 +42,9 @@ quit
 #reset
 #input_reset
 	set LastMBCoords {Checkpoint}
+	msg {PlayerCoords}
 	kill
+	msg {PlayerCoords}
 jump #undochanges
 
 // call #placetempblock|{block}|{X} {Y} {Z}
