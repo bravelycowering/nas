@@ -13,9 +13,6 @@ quit
 
 #onCoordChanged
 
-	if IgnoreMovement set LastMBCoords {MBCoords}
-	if IgnoreMovement quit
-
 	call #settempblock|StandInID|{MBCoords}
 
 	setsplit MBCoords " "
@@ -29,7 +26,7 @@ quit
 	call #settempblock|LastStandOnID|{LastMBCoords[0]} {LastMBCoords[1]} {LastMBCoords[2]}
 
 	if label #FIRESTARTER[{LastStandOnID}] call #ignite|{LastMBCoords}
-	if StandInID|=|54 call #reset
+	if StandInID|=|54 jump #reset
 	if StandOnID|=|41 call #checkpoint|{MBCoords}
 	if StandInID|=|766 call #crunch|{MBCoords}
 
@@ -44,9 +41,8 @@ quit
 // call #reset
 #reset
 #input_reset
-	set IgnoreMovement true
 	kill
-	set IgnoreMovement
+	set LastMBCoords {PlayerCoords}
 jump #undochanges
 
 // call #placetempblock|{block}|{X} {Y} {Z}
