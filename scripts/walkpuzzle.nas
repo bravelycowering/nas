@@ -41,7 +41,7 @@ quit
 // call #reset
 #reset
 #input_reset
-	set LastMBCoords {PlayerCoords}
+	set LastMBCoords {Checkpoint}
 	kill
 jump #undochanges
 
@@ -80,8 +80,8 @@ quit
 		effect fire {l_c} 0 0 0
 		cs pos {l_c} icicle melt:pitch({l_pitch})
 	jump #placetempblock|0|{l_c}
-	cs pos {l_c} fire light:pitch({l_pitch})
 	#ignite.endsnowstove
+	cs pos {l_c} fire light:pitch({l_pitch})
 jump #placetempblock|54|{l_c}
 
 // call #checkpoint|{X} {Y} {Z}
