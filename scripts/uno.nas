@@ -7,6 +7,8 @@ using no_runarg_underscore_conversion
 	clickevent sync register #onclick
 	set PREFIXES &c &k &2 &r &f■
 	setsplit PREFIXES " "
+	set COLORS Red Yellow Green Blue &cW&ki&2l&rd&f
+	setsplit COLORS " "
 	set SYMBOLS 1 2 3 4 5 6 7 8 9 0 ▄ +2 ▀ +4 ? █ ♥ ♦ ♣ ♠ ╙ ╞
 	setsplit SYMBOLS " "
 	set PARTICLES red orange green blue white
@@ -54,9 +56,11 @@ quit
 	setrounddown {runArg1}.color
 	set {runArg1}.symbol {runArg2}
 	setmod {runArg1}.symbol 48
-	set {runArg1}.name {PREFIXES[{{runArg1}.color}]}{SYMBOLS[{{runArg1}.symbol}]}
+	set {runArg1}.shortname {PREFIXES[{{runArg1}.color}]}{SYMBOLS[{{runArg1}.symbol}]}
+	set {runArg1}.name {PREFIXES[{{runArg1}.color}]}{COLORS[{{runArg1}.color}]} {SYMBOLS[{{runArg1}.symbol}]}
 	// single hardcoded instance to make wild card just appear as wild
-	if {runArg1}.name|=|"{PREFIXES[4]}{SYMBOLS[15]}" set {runArg1}.name {PREFIXES[4]}
+	if {runArg1}.shortname|=|"{PREFIXES[4]}{SYMBOLS[15]}" set {runArg1}.name {PREFIXES[4]}{COLORS[4]}
+	if {runArg1}.shortname|=|"{PREFIXES[4]}{SYMBOLS[15]}" set {runArg1}.shortname {PREFIXES[4]}
 quit
 
 #getcardfromitem
