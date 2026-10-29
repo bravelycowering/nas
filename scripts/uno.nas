@@ -6,8 +6,9 @@ using no_runarg_underscore_conversion
 	clientactionevent sync register #onclientaction
 	clickevent sync register #onclick
 	set PREFIXES &c &k &2 &r &f■
+	set PREFIXES &c &e &a &b &f■
 	setsplit PREFIXES " "
-	set COLORS Red Yellow Green Blue &cW&ki&2l&rd&f
+	set COLORS Red Yellow Green Blue {PREFIXES[0]}W{PREFIXES[1]}i{PREFIXES[2]}l{PREFIXES[3]}d{PREFIXES[4]}
 	setsplit COLORS " "
 	set SYMBOLS 1 2 3 4 5 6 7 8 9 0 ▄ +2 ▀ +4 ? █ ♥ ♦ ♣ ♠ ╙ ╞
 	setsplit SYMBOLS " "
