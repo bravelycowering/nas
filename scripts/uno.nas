@@ -49,6 +49,8 @@ quit
 	set {runArg1}.symbol {runArg2}
 	setmod {runArg1}.symbol 48
 	set {runArg1}.name {PREFIXES[{{runArg1}.color}]}{SYMBOLS[{{runArg1}.symbol}]}
+	// single hardcoded instance to make wild card just appear as wild
+	if {runArg1}.name|=|"{PREFIXES[4]}{SYMBOLS[15]}" set {runArg1}.name {PREFIXES[4]}
 quit
 
 #getcardfromitem
