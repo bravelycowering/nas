@@ -34,7 +34,7 @@ quit
 	// msg NAME: {l_card.name}
 	localmsg announce @color@nick&7 played a {l_card.name}
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
-	setrandrangedecimal l_pitch 0.95 1.05
+	setrandrangedecimal l_pitch 0.9 1.1
 	localcs pos {click.coordsX} {l_y} {click.coordsZ} ui pagescroll:pitch({l_pitch})
 	setsub l_y 0.25
 	effect {PARTICLES[{l_card.color}]} {click.coordsX} {l_y} {click.coordsZ} 0 0 0 true
