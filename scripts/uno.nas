@@ -12,7 +12,7 @@ using no_runarg_underscore_conversion
 	setsplit COLORS ;
 	set SYMBOLS 1 2 3 4 5 6 7 8 9 0 ▄ +2 ▀ +4 ? █ ♥ ♦ ♣ ♠ ╙ ╞
 	setsplit SYMBOLS " "
-	set PARTICLES redprecise orangeprecise greenprecise blueprecise
+	set PARTICLES red orange green blue
 	setsplit PARTICLES " "
 quit
 
@@ -68,30 +68,20 @@ quit
 	setsub l_temp 256
 jump #getcard|{runArg1}|{l_temp}
 
-// call #placeparticles|{type}|{count}|{coords}
-#placeparticles
-	if runArg2|=|0 quit
-	set l_temp {runArg3}
-	setsplit l_temp " "
-	setsub l_temp[1] 0.4
-	setrandrangedecimal l_temp2 -0.3 0.3
-	setsub l_temp[0] {l_temp2}
-	setrandrangedecimal l_temp3 -0.3 0.3
-	setsub l_temp[2] {l_temp3}
-	effect {runArg1} {l_temp[0]} {l_temp[1]} {l_temp[2]} {l_temp2} -1 {l_temp3} true
-	set l_temp {runArg2}
-	setsub l_temp 1
-jump #placeparticles|{runArg1}|{l_temp}|{runArg3}
-
 // has access to l_card and l_coords
 #coloraction[0]
 #coloraction[1]
 #coloraction[2]
 #coloraction[3]
-jump #placeparticles|{PARTICLES[{l_card.color}]}|10|{l_coords}
+	setsplit l_coords " "
+	setsub l_coords[1] 0.25
+	effect {PARTICLES[{l_card.color}]} {l_coords[0]} {l_coords[1]} {l_coords[2]} 0 0 0 true
+quit
 
 #coloraction[4]
-	call #placeparticles|{PARTICLES[{l_card.color}]}|10|{l_coords}
+	setsplit l_coords " "
+	setsub l_coords[1] 0.25
+	effect white {l_coords[0]} {l_coords[1]} {l_coords[2]} 0 0 0 true
 	localcs all pickup scifi:pitch(.5):skip(1)
 quit
 
