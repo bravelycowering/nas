@@ -18,7 +18,6 @@ quit
 	setadd card 256
 	placeblock {card} {click.coordsX} {y} {click.coordsZ}
 	localcs pos {click.coordsX} {y} {click.coordsZ} ui pagescroll
-	localcs pos {click.coordsX} {y} {click.coordsZ} cardboard impacthard:pitch(2):volume(0.5)
 	setsub y 0.25
 	effect white {click.coordsX} {y} {click.coordsZ} 0 0 0 true
 quit
