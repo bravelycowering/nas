@@ -82,10 +82,10 @@ quit
 	setsplit l_coords " "
 	setsub l_coords[1] 0.25
 	effect white {l_coords[0]} {l_coords[1]} {l_coords[2]} 0 0 0 true
-	effect redprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} -1 -1 -1 true
-	effect orangeprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} 1 -1 -1 true
-	effect greenprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} -1 -1 1 true
-	effect blueprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} 1 -1 1 true
+	effect redprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} 1 -1 1 true
+	effect orangeprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} -1 -1 1 true
+	effect greenprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} 1 -1 -1 true
+	effect blueprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} -1 -1 -1 true
 	localcs all pickup scifi:pitch(.5):skip(1)
 quit
 
