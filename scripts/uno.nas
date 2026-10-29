@@ -34,10 +34,6 @@ quit
 quit
 
 // call #getcard|pkg|{id}
-#getcardfromblock
-	setsub runArg2 256
-#getcardfromitem
-	setsub runArg2 256
 #getcard
 	resetdata packages {runArg1}.*
 	if runArg2|<|0 quit
@@ -54,3 +50,8 @@ quit
 	setmod {runArg1}.symbol 48
 	set {runArg1}.name {PREFIXES[{{runArg1}.color}]}{SYMBOLS[{{runArg1}.symbol}]}
 quit
+
+#getcardfromitem
+	set l_temp {runArg2}
+	setsub l_temp 256
+jump #getcard|{runArg1}|{l_temp}
