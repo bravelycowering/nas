@@ -31,6 +31,8 @@ quit
 	localcs pos {click.coordsX} {l_y} {click.coordsZ} ui pagescroll
 	setsub l_y 0.25
 	effect white {click.coordsX} {l_y} {click.coordsZ} 0 0 0 true
+	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
+	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
 quit
 
 // call #getcard|pkg|{id}
@@ -57,3 +59,23 @@ quit
 	set l_temp {runArg2}
 	setsub l_temp 256
 jump #getcard|{runArg1}|{l_temp}
+
+#coloraction[4]
+	localcs all pickup scifi:pitch(.5):skip(1)
+quit
+
+#symbolaction[10]
+	localcs all dukeitempickup:pitch(-1)
+quit
+
+#symbolaction[11]
+	localcs all pickup beer
+quit
+
+#symbolaction[12]
+	localcs all pickup secret:pitch(-1):skip(.5)
+quit
+
+#symbolaction[13]
+	localcs all pickup beer:cut(.35)pickup beer:skip(.15):pitch(1.02)
+quit
