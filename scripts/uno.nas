@@ -75,9 +75,9 @@ jump #getcard|{runArg1}|{l_temp}
 	setsplit l_temp " "
 	setsub l_temp[1] 0.4
 	setrandrangedecimal l_temp2 -0.3 0.3
-	setadd l_temp[0] {l_temp2}
+	setsub l_temp[0] {l_temp2}
 	setrandrangedecimal l_temp3 -0.3 0.3
-	setadd l_temp[2] {l_temp3}
+	setsub l_temp[2] {l_temp3}
 	effect {runArg1} {l_temp[0]} {l_temp[1]} {l_temp[2]} {l_temp2} -1 {l_temp3} true
 	set l_temp {runArg2}
 	setsub l_temp 1
@@ -91,7 +91,7 @@ jump #placeparticles|{runArg1}|{l_temp}|{runArg3}
 jump #placeparticles|{PARTICLES[{l_card.color}]}|10|{l_coords}
 
 #coloraction[4]
-	call #placeparticles|whiteprecise|10|{l_coords}
+	call #placeparticles|{PARTICLES[{l_card.color}]}|10|{l_coords}
 	localcs all pickup scifi:pitch(.5):skip(1)
 quit
 
