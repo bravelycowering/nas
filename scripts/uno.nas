@@ -30,7 +30,7 @@ quit
 	call #getcardfromitem|l_card|{PlayerHeldBlock}
 	if l_card.id|=|"" quit
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
-	call #getcardfromitem|l_prev|{l_id}
+	call #getcardfromblock|l_prev|{l_id}
 	call #getcardscompatible|l_allow|l_prev|l_card
 	ifnot l_allow jump #cantplacethat
 	// msg ID: {l_card.id} (item: {l_card.item}, block: {l_card.block})
@@ -87,6 +87,11 @@ quit
 #getcardfromitem
 	set l_temp {runArg2}
 	setsub l_temp 256
+jump #getcard|{runArg1}|{l_temp}
+
+#getcardfromblock
+	set l_temp {runArg2}
+	setsub l_temp 512
 jump #getcard|{runArg1}|{l_temp}
 
 // has access to l_card and l_coords
