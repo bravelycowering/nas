@@ -29,6 +29,10 @@ quit
 	setadd l_y 1
 	call #getcardfromitem|l_card|{PlayerHeldBlock}
 	if l_card.id|=|"" quit
+	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
+	call #getcardfromitem|l_prev|{l_id}
+	call #getcardscompatible|l_allow|l_prev|l_card
+	ifnot l_allow jump #cantplacethat
 	// msg ID: {l_card.id} (item: {l_card.item}, block: {l_card.block})
 	// msg COLOR: {l_card.color}, SYMBOL: {l_card.symbol}
 	// msg NAME: {l_card.name}
@@ -39,6 +43,23 @@ quit
 	set l_coords {click.coordsX} {l_y} {click.coordsZ}
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
 	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
+quit
+
+#cantplacethat
+	cs me noteblock:choose(8)
+	cpemsg smallannounce &cCan't play that card!
+quit
+
+// call #getcardscompatible|pkg|card_a|card_b
+#getcardscompatible
+	set {runArg1} true
+	if {runArg2}.id|=|"" quit
+	if {runArg3}.id|=|"" quit
+	if {runArg2}.symbol|=|{runArg3}.symbol quit
+	if {runArg2}.color|=|{runArg3}.color quit
+	if {runArg2}.color|=|4 quit
+	if {runArg3}.color|=|4 quit
+	set {runArg1} false
 quit
 
 // call #getcard|pkg|{id}
