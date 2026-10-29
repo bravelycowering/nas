@@ -12,7 +12,7 @@ using no_runarg_underscore_conversion
 	setsplit COLORS ;
 	set SYMBOLS 1 2 3 4 5 6 7 8 9 0 ▄ +2 ▀ +4 ? █ ♥ ♦ ♣ ♠ ╙ ╞
 	setsplit SYMBOLS " "
-	set PARTICLES red orange green blue white
+	set PARTICLES redprecise orangeprecise greenprecise blueprecise
 	setsplit PARTICLES " "
 quit
 
@@ -36,8 +36,7 @@ quit
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setrandrangedecimal l_pitch 0.9 1.1
 	localcs pos {click.coordsX} {l_y} {click.coordsZ} ui pagescroll:pitch({l_pitch})
-	setsub l_y 0.25
-	effect {PARTICLES[{l_card.color}]} {click.coordsX} {l_y} {click.coordsZ} 0 0 0 true
+	set l_coords {click.coordsX} {l_y} {click.coordsZ}
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
 	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
 quit
@@ -69,7 +68,30 @@ quit
 	setsub l_temp 256
 jump #getcard|{runArg1}|{l_temp}
 
+// call #placeparticles|{type}|{count}|{coords}
+#placeparticles
+	if runArg2|=|0 quit
+	set l_temp {runArg3}
+	setsplit l_temp " "
+	setsub l_temp[1] 0.4
+	setrandrangedecimal l_temp2 -0.3 0.3
+	setadd l_temp[0] {l_temp2}
+	setrandrangedecimal l_temp3 -0.3 0.3
+	setadd l_temp[2] {l_temp3}
+	effect {runArg1} {l_temp[0]} {l_temp[1]} {l_temp[2]} {l_temp2} -1 {l_temp3} true
+	set l_temp {runArg2}
+	setsub l_temp 1
+jump #placeparticles|{runArg1}|{l_temp}|{runArg3}
+
+// has access to l_card and l_coords
+#coloraction[0]
+#coloraction[1]
+#coloraction[2]
+#coloraction[3]
+jump #placeparticles|{PARTICLES[{l_card.color}]}|10|{l_coords}
+
 #coloraction[4]
+	call #placeparticles|whiteprecise|10|{l_coords}
 	localcs all pickup scifi:pitch(.5):skip(1)
 quit
 
