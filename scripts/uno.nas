@@ -39,7 +39,7 @@ quit
 #getcardfromitem
 	setsub runArg2 256
 #getcard
-	resetdata {runArg1}.*
+	resetdata packages {runArg1}.*
 	if runArg2|<|0 quit
 	if runArg2|>=|240 quit
 	set {runArg1}.id {runArg2}
