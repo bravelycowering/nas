@@ -23,6 +23,7 @@ quit
 	ifnot l_id|=|42 quit
 	setadd l_y 1
 	call #getcardfromitem|l_card|{PlayerHeldBlock}
+	if l_card.id|=|"" quit
 	msg ID: {l_card.id} (item: {l_card.item}, block: {l_card.block})
 	msg COLOR: {l_card.color}, SYMBOL: {l_card.symbol}
 	msg NAME: {l_card.name}
