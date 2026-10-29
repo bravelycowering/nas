@@ -9,6 +9,8 @@ using no_runarg_underscore_conversion
 	setsplit PREFIXES " "
 	set SYMBOLS 1 2 3 4 5 6 7 8 9 0 ▄ +2 ▀ +4 ? █ ♥ ♦ ♣ ♠ ╙ ╞
 	setsplit SYMBOLS " "
+	set PARTICLES red orange green blue white
+	setsplit PARTICLES " "
 quit
 
 #onclientaction
@@ -30,7 +32,7 @@ quit
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	localcs pos {click.coordsX} {l_y} {click.coordsZ} ui pagescroll
 	setsub l_y 0.25
-	effect white {click.coordsX} {l_y} {click.coordsZ} 0 0 0 true
+	effect {PARTICLES[{l_card.color}]} {click.coordsX} {l_y} {click.coordsZ} 0 0 0 true
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
 	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
 quit
@@ -73,7 +75,7 @@ quit
 quit
 
 #symbolaction[12]
-	localcs all pickup secret:pitch(-1):skip(.5)
+	localcs all pickup secret:pitch(-1.5):skip(.5)
 quit
 
 #symbolaction[13]
