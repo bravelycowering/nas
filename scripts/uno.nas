@@ -30,7 +30,8 @@ quit
 	msg COLOR: {l_card.color}, SYMBOL: {l_card.symbol}
 	msg NAME: {l_card.name}
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
-	localcs pos {click.coordsX} {l_y} {click.coordsZ} ui pagescroll
+	setrandrangedecimal l_pitch 0.95 1.05
+	localcs pos {click.coordsX} {l_y} {click.coordsZ} ui pagescroll:pitch({l_pitch})
 	setsub l_y 0.25
 	effect {PARTICLES[{l_card.color}]} {click.coordsX} {l_y} {click.coordsZ} 0 0 0 true
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
