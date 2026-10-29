@@ -10,6 +10,7 @@ quit
 #onclick
 	setblockid id {click.coordsX} 64 {click.coordsZ}
 	ifnot id|=|42 quit
-	setadd id 256
-	placeblock {id} {click.coordsX} 65 {click.coordsZ}
+	set card {PlayerHeldBlock}
+	setadd card 256
+	placeblock {card} {click.coordsX} 65 {click.coordsZ}
 quit
