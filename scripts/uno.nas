@@ -71,7 +71,7 @@ quit
 	setsub cardcount 1
 	if cardcount|=|1 localmsg announce &eUNO! @color@nick&7 played a {l_card.name}
 	else localmsg announce @color@nick&7 played a {l_card.name}
-	if cardcount|=|0 localmsg announce @color@nick&7 is &fout of cards!
+	if cardcount|=|0 call #winner
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setsub cards[{l_card.id}] 1
 	cpemsg bot1 &a/in&f Cards: {cardcount}
@@ -79,6 +79,11 @@ quit
 	localcs pos {l_coords} ui pagescroll:pitch({l_pitch})
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
 	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
+quit
+
+#winner
+	localmsg announce @color@nick&7 is &aout of cards!
+	localcs me collect giant pizza:pitch(0.95):echo(0.25,0.8)
 quit
 
 #chair
@@ -103,6 +108,7 @@ quit
 	cs pos {click.coords} metal clang:skip(0)metl close
 	cmd holdsilent 0
 	set cardcount 0
+	set drawninarow 0
 	cpemsg bot1 &a/in&f Cards: {cardcount}
 	resetdata packages cards[*]
 	call #createdeck|deckcards|DECK.STANDARD
@@ -119,6 +125,7 @@ quit
 	if drawninarow|=|1 localmsg announce @color@nick&7 drew a card
 	else localmsg announce @color@nick&7 drew {drawninarow} cards
 	cpemsg announce &7You picked up a {l_card.name}
+	cmd holdsilent 0
 	cmd holdsilent {l_card.item}
 	setadd cardcount 1
 	cpemsg bot1 &a/in&f Cards: {cardcount}
