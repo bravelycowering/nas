@@ -39,8 +39,8 @@ quit
 	localmsg announce @color@nick&7 played a {l_card.name}
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setrandrangedecimal l_pitch 0.9 1.1
-	localcs pos {click.coordsX} {l_y} {click.coordsZ} ui pagescroll:pitch({l_pitch})
 	set l_coords {click.coordsX} {l_y} {click.coordsZ}
+	localcs pos {l_coords} ui pagescroll:pitch({l_pitch})
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
 	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
 quit
@@ -114,21 +114,21 @@ quit
 	effect orangeprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} -1 -1 1 true
 	effect greenprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} 1 -1 -1 true
 	effect blueprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} -1 -1 -1 true
-	localcs all pickup scifi:pitch(.5):skip(1)
+	localcs pos {l_coords} pickup scifi:pitch(.5):skip(1)
 quit
 
 #symbolaction[10]
-	localcs all dukeitempickup:pitch(-1)
+	localcs pos {l_coords} dukeitempickup:pitch(-1)
 quit
 
 #symbolaction[11]
-	localcs all pickup beer
+	localcs pos {l_coords} pickup beer
 quit
 
 #symbolaction[12]
-	localcs all pickup secret:pitch(-1.5):skip(.5)
+	localcs pos {l_coords} pickup secret:pitch(-1.5):skip(.5)
 quit
 
 #symbolaction[13]
-	localcs all pickup beer:cut(.35)pickup beer:skip(.15):pitch(1.02)
+	localcs pos {l_coords} pickup beer:cut(.35)pickup beer:skip(.15):pitch(1.02)
 quit
