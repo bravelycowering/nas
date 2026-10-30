@@ -14,6 +14,9 @@ using no_runarg_underscore_conversion
 	setsplit SYMBOLS " "
 	set PARTICLES red orange green blue
 	setsplit PARTICLES " "
+	// preload important sounds
+	cs me gup:choose(0):volume(0)
+	cs me gup:choose(1):volume(0)
 quit
 
 #onclientaction
