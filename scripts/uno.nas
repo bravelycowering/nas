@@ -19,6 +19,8 @@ using no_runarg_underscore_conversion
 	cs me gup:choose(1):volume(0)
 	// standard deck
 	set DECK.STANDARD 0,0,48,48,96,96,144,144,1,1,49,49,97,97,145,145,2,2,50,50,98,98,146,146,3,3,51,51,99,99,147,147,4,4,52,52,100,100,148,148,5,5,53,53,101,101,149,149,6,6,54,54,102,102,150,150,7,7,55,55,103,103,151,151,8,8,56,56,104,104,152,152,9,57,105,153,10,10,58,58,106,106,154,154,11,11,59,59,107,107,155,155,207,207,207,207,205,205,205,205
+	// cards list
+	call #createdeck|cards|DECK.STANDARD
 quit
 
 #onclientaction
@@ -54,7 +56,12 @@ quit
 
 #drawcard
 	localcs pos {click.coords} ui bookpagebwd
-	cpemsg announce unfinished pretend u got a card
+	if cards.Length|<=|0 call #createdeck|cards|DECK.STANDARD
+	setsub cards.Length 1
+	set l_card {cards[{cards.Length}]}
+	call #getcard|l_card|{l_card}
+	cpemsg announce if id finished this youd have {l_card.name}
+	cpemsg smallannounce {cards.Length} cards left in current deck
 quit
 
 #cantplacethat
