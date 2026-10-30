@@ -21,8 +21,9 @@ using no_runarg_underscore_conversion
 	set DECK.STANDARD 0,0,48,48,96,96,144,144,1,1,49,49,97,97,145,145,2,2,50,50,98,98,146,146,3,3,51,51,99,99,147,147,4,4,52,52,100,100,148,148,5,5,53,53,101,101,149,149,6,6,54,54,102,102,150,150,7,7,55,55,103,103,151,151,8,8,56,56,104,104,152,152,9,57,105,153,10,10,58,58,106,106,154,154,11,11,59,59,107,107,155,155,12,12,60,60,108,108,156,156,207,207,207,207,205,205,205,205
 	// cards list
 	call #createdeck|cards|DECK.STANDARD
-	// drawn cards
+	// vars
 	set drawninarow 0
+	set lasttrashclick 0
 quit
 
 #onclientaction
@@ -66,9 +67,17 @@ quit
 quit
 
 #trash
-	// cpemsg bigannounce &cAre you sure?
-	// cpemsg smallannounce &7Clicking the trash can again will &cdelete all your cards!
-	// cs pos {click.coords} metl open
+	set l_time {epochMS}
+	setsub l_time {lasttrashclick}
+	if l_time|<|5000 jump #trash_confirm
+	set lasttrashclick {epochMS}
+	cpemsg bigannounce &cAre you sure?
+	cpemsg smallannounce &7Clicking the trash can again will &cdelete all your cards!
+	cs pos {click.coords} metl open
+quit
+
+#trash_confirm
+	set lasttrashclick 0
 	cpemsg bigannounce &7Discarded all cards.
 	cs pos {click.coords} metal clang:skip(0)metl close
 	cmd holdsilent 0
