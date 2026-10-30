@@ -79,6 +79,7 @@ quit
 #trash_confirm
 	set lasttrashclick 0
 	cpemsg bigannounce &7Discarded all cards.
+	cpemsg smallannounce &f
 	cs pos {click.coords} metal clang:skip(0)metl close
 	cmd holdsilent 0
 quit
