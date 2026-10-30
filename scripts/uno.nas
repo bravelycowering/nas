@@ -74,6 +74,8 @@ quit
 	if cardcount|=|0 call #winner
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setsub cards[{l_card.id}] 1
+	if cards[{l_card.id}]|=|0 cmd holdsilent 250
+	if cards[{l_card.id}]|=|0 cmd holdsilent 0
 	cpemsg bot1 &a/in&f Cards: {cardcount}
 	setrandrangedecimal l_pitch 0.9 1.1
 	localcs pos {l_coords} ui pagescroll:pitch({l_pitch})
