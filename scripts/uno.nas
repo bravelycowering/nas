@@ -103,6 +103,7 @@ quit
 	set cardcount 0
 	cpemsg bot1 Cards: {cardcount}
 	resetdata packages cards[*]
+	call #createdeck|deckcards|DECK.STANDARD
 quit
 
 #drawcard
