@@ -44,6 +44,16 @@ quit
 quit
 
 #onclick
+	if wildmenu|=|"" jump #onclick.wildmenu.end
+		set l_coords {wildmenu}
+		setblockid l_id {l_coords}
+		call #getcardfromblock|l_prev|{l_id}
+		ifnot l_prev.color|=|4 jump #onclick.wildmenu.end
+			if click.coords|=|wildmenu.red jump #setwildcolor|0
+			if click.coords|=|wildmenu.yellow jump #setwildcolor|1
+			if click.coords|=|wildmenu.green jump #setwildcolor|2
+			if click.coords|=|wildmenu.blue jump #setwildcolor|3
+	#onclick.wildmenu.end
 	set l_y {click.coordsY}
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	if l_id|=|255 jump #drawcard
@@ -90,21 +100,60 @@ quit
 	setsub l_coords[0] 1
 	setsub l_coords[2] 1
 	tempblock 251 {l_coords[0]} {l_coords[1]} {l_coords[2]}
+	set wildmenu.red {l_coords[0]} {l_coords[1]} {l_coords[2]}
 
 	setsplit l_coords " "
 	setadd l_coords[0] 1
 	setsub l_coords[2] 1
 	tempblock 252 {l_coords[0]} {l_coords[1]} {l_coords[2]}
+	set wildmenu.yellow {l_coords[0]} {l_coords[1]} {l_coords[2]}
 
 	setsplit l_coords " "
 	setsub l_coords[0] 1
 	setadd l_coords[2] 1
 	tempblock 253 {l_coords[0]} {l_coords[1]} {l_coords[2]}
+	set wildmenu.green {l_coords[0]} {l_coords[1]} {l_coords[2]}
 
 	setsplit l_coords " "
 	setadd l_coords[0] 1
 	setadd l_coords[2] 1
 	tempblock 254 {l_coords[0]} {l_coords[1]} {l_coords[2]}
+	set wildmenu.blue {l_coords[0]} {l_coords[1]} {l_coords[2]}
+
+quit
+
+#hidewildmenu
+
+	set wildmenu
+	set wildmenu.red
+	set wildmenu.yellow
+	set wildmenu.green
+	set wildmenu.blue
+	set l_coords {click.coords}
+
+	setsplit l_coords " "
+	setsub l_coords[0] 1
+	setsub l_coords[2] 1
+	setblockid l_id {l_coords[0]} {l_coords[1]} {l_coords[2]}
+	tempblock {l_id} {l_coords[0]} {l_coords[1]} {l_coords[2]} true
+
+	setsplit l_coords " "
+	setadd l_coords[0] 1
+	setsub l_coords[2] 1
+	setblockid l_id {l_coords[0]} {l_coords[1]} {l_coords[2]}
+	tempblock {l_id} {l_coords[0]} {l_coords[1]} {l_coords[2]} true
+
+	setsplit l_coords " "
+	setsub l_coords[0] 1
+	setadd l_coords[2] 1
+	setblockid l_id {l_coords[0]} {l_coords[1]} {l_coords[2]}
+	tempblock {l_id} {l_coords[0]} {l_coords[1]} {l_coords[2]} true
+
+	setsplit l_coords " "
+	setadd l_coords[0] 1
+	setadd l_coords[2] 1
+	setblockid l_id {l_coords[0]} {l_coords[1]} {l_coords[2]}
+	tempblock {l_id} {l_coords[0]} {l_coords[1]} {l_coords[2]} true
 
 quit
 
@@ -192,11 +241,11 @@ quit
 // call #getcardscompatible|pkg|card_a|card_b
 #getcardscompatible
 	set {runArg1} true
+	if {runArg2}.color|=|4 set {runArg1} false
 	if {runArg2}.id|=|"" quit
 	if {runArg3}.id|=|"" quit
 	if {runArg2}.symbol|=|{runArg3}.symbol quit
 	if {runArg2}.color|=|{runArg3}.color quit
-	if {runArg2}.color|=|4 quit
 	if {runArg3}.color|=|4 quit
 	set {runArg1} false
 quit
@@ -279,6 +328,10 @@ quit
 	ifnot l_prev.color|=|4 quit
 	set l_color {PlayerHeldBlock}
 	setsub l_color 251
+jump #setwildcolor|{l_color}
+
+#setwildcolor
+	set l_color {runArg1}
 	setsplit l_coords " "
 	setsub l_coords[1] 0.25
 	effect {PARTICLES[{l_color}]} {l_coords[0]} {l_coords[1]} {l_coords[2]} 0 0 0 true
@@ -291,4 +344,4 @@ quit
 	localcs pos {l_coords} poof:choose(1):volume(0.5)
 	set drawninarow 0
 	localmsg announce @color@nick&7 set the color to {PREFIXES[{l_color}]}{COLORS[{l_color}]}
-quit
+jump #hidewildmenu
