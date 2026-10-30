@@ -27,10 +27,12 @@ quit
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	ifnot l_id|=|42 quit
 	setadd l_y 1
+	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
+	set l_coords {click.coordsX} {l_y} {click.coordsZ}
+	call #getcardfromblock|l_prev|{l_id}
+	if label #specificaction[{PlayerHeldBlock}] jump #specificaction[{PlayerHeldBlock}]
 	call #getcardfromitem|l_card|{PlayerHeldBlock}
 	if l_card.id|=|"" quit
-	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
-	call #getcardfromblock|l_prev|{l_id}
 	call #getcardscompatible|l_allow|l_prev|l_card
 	ifnot l_allow jump #cantplacethat
 	// msg ID: {l_card.id} (item: {l_card.item}, block: {l_card.block})
@@ -39,7 +41,6 @@ quit
 	localmsg announce @color@nick&7 played a {l_card.name}
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setrandrangedecimal l_pitch 0.9 1.1
-	set l_coords {click.coordsX} {l_y} {click.coordsZ}
 	localcs pos {l_coords} ui pagescroll:pitch({l_pitch})
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
 	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
@@ -96,7 +97,7 @@ jump #getcard|{runArg1}|{l_temp}
 	setsub l_temp 512
 jump #getcard|{runArg1}|{l_temp}
 
-// has access to l_card and l_coords
+// has access to l_card, l_prev, and l_coords
 #coloraction[0]
 #coloraction[1]
 #coloraction[2]
@@ -131,4 +132,16 @@ quit
 
 #symbolaction[13]
 	localcs pos {l_coords} pickup beer:cut(.35)pickup beer:skip(.15):pitch(1.02)
+quit
+
+// has access to l_prev and l_coords
+#specificaction[251]
+#specificaction[252]
+#specificaction[253]
+#specificaction[254]
+	set l_color {PlayerHeldBlock}
+	setsub l_color 251
+	setsplit l_coords " "
+	setsub l_coords[1] 0.25
+	effect {PARTICLES[{l_color}]} {l_coords[0]} {l_coords[1]} {l_coords[2]} 0 0 0 true
 quit
