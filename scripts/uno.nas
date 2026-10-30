@@ -139,9 +139,16 @@ quit
 #specificaction[252]
 #specificaction[253]
 #specificaction[254]
+	ifnot l_prev.color|=|4 quit
 	set l_color {PlayerHeldBlock}
 	setsub l_color 251
 	setsplit l_coords " "
 	setsub l_coords[1] 0.25
 	effect {PARTICLES[{l_color}]} {l_coords[0]} {l_coords[1]} {l_coords[2]} 0 0 0 true
+	set l_id {l_color}
+	setmul l_id 48
+	setadd l_id {l_prev.symbol}
+	setadd l_id 512
+	placeblock {l_id} {l_coords}
+	localcs pos {l_coords} poof:choose(1)
 quit
