@@ -39,6 +39,29 @@ quit
 	if l_i|<|240 jump #input.invloop
 quit
 
+#next
+	set l_i 0
+	call #getcardfromitem|l_held|{PlayerHeldBlock}
+	#next.findloop
+		set l_idx {l_held.id}
+		if l_idx|=|"" set l_idx 0
+		setadd l_idx {l_i}
+		setmod l_idx 240
+		if cards[{l_i}]|<=|0 jump #next.findloop.endif
+			call #getcard|l_card|{l_i}
+			call #getcardscompatible|l_allow|l_prev|l_card
+			ifnot l_allow jump #next.findloop.endif
+				cs me buttonclick:choose(4)
+				cmd holdsilent 0
+				cmd holdsilent {l_card.item}
+				quit
+		#next.findloop.endif
+		setadd l_i 1
+	if l_i|<|240 jump #next.findloop
+	cs me noteblock:choose(8)
+	cpemsg smallannounce &cYou don't have any playable cards!
+quit
+
 #onclientaction
 	// if clientaction.type|=|"BlockListSelected" msg {clientaction.value} {PlayerHeldBlock}
 quit
@@ -63,12 +86,13 @@ quit
 	ifnot l_id|=|42 setsub l_y 1
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	ifnot l_id|=|42 quit
-// PLAY CARD FUNCTIONALITY
 	setadd l_y 1
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	set l_coords {click.coordsX} {l_y} {click.coordsZ}
 	call #getcardfromblock|l_prev|{l_id}
 	if label #specificaction[{PlayerHeldBlock}] jump #specificaction[{PlayerHeldBlock}]
+// PLAY CARD FUNCTIONALITY
+	if click.button|=|"Middle" jump #next
 	call #getcardfromitem|l_card|{PlayerHeldBlock}
 	if l_card.id|=|"" quit
 	call #getcardscompatible|l_allow|l_prev|l_card
