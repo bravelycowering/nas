@@ -26,7 +26,7 @@ using no_runarg_underscore_conversion
 quit
 
 #onclientaction
-	if clientaction.type|=|"BlockListSelected" msg {clientaction.value} {PlayerHeldBlock}
+	// if clientaction.type|=|"BlockListSelected" msg {clientaction.value} {PlayerHeldBlock}
 quit
 
 #onclick
@@ -67,7 +67,7 @@ quit
 	if drawninarow|=|1 localmsg announce @color@nick&7 drew a card
 	else localmsg announce @color@nick&7 drew {drawninarow} cards
 	cpemsg announce if id finished this youd have {l_card.name}
-	cmd hold {l_card.item}
+	cmd holdsilent {l_card.item}
 quit
 
 #cantplacethat
