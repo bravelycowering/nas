@@ -17,6 +17,8 @@ using no_runarg_underscore_conversion
 	// preload important sounds
 	cs me gup:choose(0):volume(0)
 	cs me gup:choose(1):volume(0)
+	// standard deck
+	set DECK.STANDARD 0,0,48,48,96,96,144,144,1,1,49,49,97,97,145,145,2,2,50,50,98,98,146,146,3,3,51,51,99,99,147,147,4,4,52,52,100,100,148,148,5,5,53,53,101,101,149,149,6,6,54,54,102,102,150,150,7,7,55,55,103,103,151,151,8,8,56,56,104,104,152,152,9,57,105,153,10,10,58,58,106,106,154,154,11,11,59,59,107,107,155,155,207,207,207,207,205,205,205,205
 quit
 
 #onclientaction
@@ -26,6 +28,7 @@ quit
 #onclick
 	set l_y {click.coordsY}
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
+	if l_id|=|255 jump #drawcard
 	ifnot l_id|=|42 setsub l_y 1
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	ifnot l_id|=|42 quit
@@ -49,9 +52,35 @@ quit
 	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
 quit
 
+#drawcard
+	localcs pos {click.coords} ui bookpagebwd
+	cpemsg announce unfinished pretend u got a card
+quit
+
 #cantplacethat
 	cs me noteblock:choose(8)
 	cpemsg smallannounce &cCan't play that card!
+quit
+
+// call #createdeck|pkg|type
+#createdeck
+	// uno deck card counts
+	// 1-9: 2 of each color
+	// 0: 1 of each color
+	// skip, draw 2, reverse: 2 of each color
+	// wild: 4
+	// wild draw 4: 4
+	set {runArg1} {{runArg2}}
+	setsplit {runArg1}
+	set l_i 0
+	#createdeck.shuffleloop
+		setrandrange l_tempi 1 {{runArg1}.Length}
+		setsub l_tempi 1
+		set l_temp {{runArg1}[{l_i}]}
+		set {runArg1}[{l_i}] {{runArg1}[{l_tempi}]}
+		set {runArg1}[{l_tempi}] {l_temp}
+		setadd l_i 1
+	if l_i|<|{runArg1}.Length jump #createdeck.shuffleloop
 quit
 
 // call #getcardscompatible|pkg|card_a|card_b
