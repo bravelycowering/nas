@@ -33,6 +33,7 @@ quit
 	set l_y {click.coordsY}
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	if l_id|=|255 jump #drawcard
+	if l_id|=|50 jump #chair
 	ifnot l_id|=|42 setsub l_y 1
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	ifnot l_id|=|42 quit
@@ -55,6 +56,11 @@ quit
 	localcs pos {l_coords} ui pagescroll:pitch({l_pitch})
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
 	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
+quit
+
+#chair
+	cmd tp {click.coords}
+	cmd tpp ~ ~8 ~
 quit
 
 #drawcard
