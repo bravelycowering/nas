@@ -71,7 +71,7 @@ quit
 	// wild: 4
 	// wild draw 4: 4
 	set {runArg1} {{runArg2}}
-	setsplit {runArg1}
+	setsplit {runArg1} ,
 	set l_i 0
 	#createdeck.shuffleloop
 		setrandrange l_tempi 1 {{runArg1}.Length}
