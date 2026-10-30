@@ -63,7 +63,7 @@ quit
 	ifnot l_id|=|42 setsub l_y 1
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	ifnot l_id|=|42 quit
-// PLAY CARD FUNCTIONALITY 
+// PLAY CARD FUNCTIONALITY
 	setadd l_y 1
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	set l_coords {click.coordsX} {l_y} {click.coordsZ}
@@ -129,7 +129,6 @@ quit
 	set wildmenu.yellow
 	set wildmenu.green
 	set wildmenu.blue
-	set l_coords {click.coords}
 
 	setsplit l_coords " "
 	setsub l_coords[0] 1
