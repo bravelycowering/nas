@@ -74,13 +74,38 @@ quit
 	if cardcount|=|0 call #winner
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setsub cards[{l_card.id}] 1
-	if cards[{l_card.id}]|=|0 cmd holdsilent 250
-	if cards[{l_card.id}]|=|0 cmd holdsilent 0
 	cpemsg bot1 &a/in&f Cards: {cardcount}
 	setrandrangedecimal l_pitch 0.9 1.1
 	localcs pos {l_coords} ui pagescroll:pitch({l_pitch})
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
 	if label #symbolaction[{l_card.symbol}] call #symbolaction[{l_card.symbol}]
+quit
+
+#createwildmenu
+
+	set l_coords {click.coords}
+	set wildmenu {click.coords}
+
+	setsplit l_coords " "
+	setsub l_coords[0] 1
+	setsub l_coords[2] 1
+	tempblock 251 {l_coords[0]} {l_coords[1]} {l_coords[2]}
+
+	setsplit l_coords " "
+	setadd l_coords[0] 1
+	setsub l_coords[2] 1
+	tempblock 252 {l_coords[0]} {l_coords[1]} {l_coords[2]}
+
+	setsplit l_coords " "
+	setsub l_coords[0] 1
+	setadd l_coords[2] 1
+	tempblock 253 {l_coords[0]} {l_coords[1]} {l_coords[2]}
+
+	setsplit l_coords " "
+	setadd l_coords[0] 1
+	setadd l_coords[2] 1
+	tempblock 254 {l_coords[0]} {l_coords[1]} {l_coords[2]}
+
 quit
 
 #winner
@@ -227,7 +252,7 @@ quit
 	effect greenprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} 1 -1 -1 true
 	effect blueprecise {l_coords[0]} {l_coords[1]} {l_coords[2]} -1 -1 -1 true
 	localcs pos {l_coords} pickup scifi:pitch(.5):skip(1)
-quit
+jump #createwildmenu
 
 #symbolaction[10]
 	localcs pos {l_coords} dukeitempickup:pitch(-1)
@@ -262,6 +287,7 @@ quit
 	setadd l_id {l_prev.symbol}
 	setadd l_id 512
 	placeblock {l_id} {l_coords}
+	cs me click:choose(3)
 	localcs pos {l_coords} poof:choose(1):volume(0.5)
 	set drawninarow 0
 	localmsg announce @color@nick&7 set the color to {PREFIXES[{l_color}]}{COLORS[{l_color}]}
