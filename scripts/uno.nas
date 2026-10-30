@@ -135,7 +135,7 @@ quit
 
 #symbolaction[13]
 	localcs pos {l_coords} pickup beer
-	localcs pos {l_coords} gup:cut(.2)pickup beer:pitch(1.02)
+	localcs pos {l_coords} gup:volume(0):cut(.2)pickup beer:pitch(1.02)
 quit
 
 // has access to l_prev and l_coords
@@ -154,5 +154,5 @@ quit
 	setadd l_id {l_prev.symbol}
 	setadd l_id 512
 	placeblock {l_id} {l_coords}
-	localcs pos {l_coords} poof:choose(1)
+	localcs pos {l_coords} poof:choose(1):volume(0.5)
 quit
