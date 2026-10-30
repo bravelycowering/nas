@@ -68,9 +68,11 @@ quit
 	// msg COLOR: {l_card.color}, SYMBOL: {l_card.symbol}
 	// msg NAME: {l_card.name}
 	set drawninarow 0
-	localmsg announce @color@nick&7 played a {l_card.name}
-	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setsub cardcount 1
+	if cardcount|=|1 localmsg announce &eUNO! @color@nick&7 played a {l_card.name}
+	else localmsg announce @color@nick&7 played a {l_card.name}
+	if cardcount|=|0 localmsg announce @color@nick&7 is &fout of cards!
+	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setsub cards[{l_card.id}] 1
 	cpemsg bot1 Cards: {cardcount}
 	setrandrangedecimal l_pitch 0.9 1.1
