@@ -71,6 +71,7 @@ quit
 	localmsg announce @color@nick&7 played a {l_card.name}
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setsub cardcount 1
+	setsub cards[{l_card.id}] 1
 	cpemsg bot1 Cards: {cardcount}
 	setrandrangedecimal l_pitch 0.9 1.1
 	localcs pos {l_coords} ui pagescroll:pitch({l_pitch})
