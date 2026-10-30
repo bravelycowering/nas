@@ -48,8 +48,8 @@ quit
 		setadd l_idx 1
 		setadd l_idx {l_i}
 		setmod l_idx 240
-		if cards[{l_i}]|<=|0 jump #next.findloop.endif
-			call #getcard|l_card|{l_i}
+		if cards[{l_idx}]|<=|0 jump #next.findloop.endif
+			call #getcard|l_card|{l_idx}
 			call #getcardscompatible|l_allow|l_prev|l_card
 			ifnot l_allow jump #next.findloop.endif
 				cs me buttonclick:choose(4)
