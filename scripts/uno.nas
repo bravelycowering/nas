@@ -370,3 +370,20 @@ jump #setwildcolor|{l_color}
 	set drawninarow 0
 	localmsg announce @color@nick&7 set the color to {PREFIXES[{l_color}]}{COLORS[{l_color}]}
 jump #hidewildmenu
+
+// MULTIPLAYER PROTOCOL
+
+// call #PL:ensure|list|{username}
+#PL:ensure
+	set l_sep #{runArg2}#
+	if {runArg1}|has|l_sep jump #PL:ensure.update
+		set {runArg1} {{runArg1}}|{l_sep}{epochMS}{l_sep}
+	quit
+	#PL:ensure.update
+		setsplit {runArg1} {l_sep}
+		// gives {runArg1}[0] and {runArg1}[1] guarenteed
+		// only gives {runArg1}[2] if its not the last entry
+		// we dont really care about {runArg1}[2] tho cuz nothing bad happens if its empty
+		set {runArg1} {{runArg1}[0]}{epochMS}{{runArg1}[2]}
+	quit
+quit
