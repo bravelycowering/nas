@@ -44,7 +44,8 @@ quit
 	call #getcardfromitem|l_held|{PlayerHeldBlock}
 	#next.findloop
 		set l_idx {l_held.id}
-		if l_idx|=|"" set l_idx 0
+		if l_idx|=|"" set l_idx -1
+		setadd l_idx 1
 		setadd l_idx {l_i}
 		setmod l_idx 240
 		if cards[{l_i}]|<=|0 jump #next.findloop.endif
