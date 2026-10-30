@@ -384,6 +384,6 @@ jump #hidewildmenu
 		// gives {runArg1}[0] and {runArg1}[1] guarenteed
 		// only gives {runArg1}[2] if its not the last entry
 		// we dont really care about {runArg1}[2] tho cuz nothing bad happens if its empty
-		set {runArg1} {{runArg1}[0]}{epochMS}{{runArg1}[2]}
+		set {runArg1} {{runArg1}[0]}{l_sep}{epochMS}{l_sep}{{runArg1}[2]}
 	quit
 quit
