@@ -378,6 +378,7 @@ jump #hidewildmenu
 	set l_sep #{runArg2}#
 	if {runArg1}|has|l_sep jump #PL:ensure.update
 		set {runArg1} {{runArg1}}|{l_sep}{epochMS}{l_sep}
+		setlength {runArg1} |
 	quit
 	#PL:ensure.update
 		setsplit {runArg1} {l_sep}
@@ -385,5 +386,40 @@ jump #hidewildmenu
 		// only gives {runArg1}[2] if its not the last entry
 		// we dont really care about {runArg1}[2] tho cuz nothing bad happens if its empty
 		set {runArg1} {{runArg1}[0]}{l_sep}{epochMS}{l_sep}{{runArg1}[2]}
+		resetdata packages {runArg1}[*]
+		setlength {runArg1} |
 	quit
+quit
+
+// call #PL:remove|list|{username}
+#PL:remove
+	set l_sep #{runArg2}#
+	ifnot {runArg1}|has|l_sep quit
+	setsplit {runArg1} {l_sep}
+	// gives {runArg1}[1] guarenteed, which is the epoch
+	set l_timestamp {{runArg1}[1]}
+	// from there we build the entry and split by that
+	resetdata packages {runArg1}[*]
+	setsplit {runArg1} |{l_sep}{l_timestamp}{l_sep}
+	set {runArg1} {{runArg1}[0]}{{runArg1}[1]}
+	resetdata packages {runArg1}[*]
+	setlength {runArg1} |
+quit
+
+// call #PL:prune|list|{time}
+#PL:prune
+	setsplit {runArg1} |
+	set {runArg1}
+	set l_i 0
+	#PL:prune.loop
+		setsplit {runArg1}[{l_i}] #
+		// username, timestamp, username
+		set l_time {epochMS}
+		setsub l_time {{runArg1}[{l_i}][1]}
+		if l_time|<=|runArg2 set {runArg1} {{runArg1}}|{{runArg1}[{l_i}]}
+		// delete splitted and move on
+		resetdata packages {runArg1}[{l_i}][*]
+		setadd l_i 1
+	if l_i|<|{runArg1}.Length jump #PL:prune.loop
+	resetdata packages {runArg1}[*]
 quit
