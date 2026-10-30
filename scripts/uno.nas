@@ -135,7 +135,7 @@ quit
 
 #symbolaction[13]
 	localcs pos {l_coords} pickup beer
-	localcs pos {l_coords} gup:volume(0):cut(.2)pickup beer:pitch(1.02)
+	localcs pos {l_coords} gup:cut(.2)pickup beer:pitch(1.02)
 quit
 
 // has access to l_prev and l_coords
