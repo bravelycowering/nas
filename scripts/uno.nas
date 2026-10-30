@@ -67,6 +67,7 @@ quit
 	if drawninarow|=|1 localmsg announce @color@nick&7 drew a card
 	else localmsg announce @color@nick&7 drew {drawninarow} cards
 	cpemsg announce if id finished this youd have {l_card.name}
+	cmd hold {l_card.item}
 quit
 
 #cantplacethat
