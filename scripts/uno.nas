@@ -34,6 +34,8 @@ quit
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	if l_id|=|255 jump #drawcard
 	if l_id|=|50 jump #chair
+	if l_id|=|53 jump #trash
+	if l_id|=|55 jump #trash
 	ifnot l_id|=|42 setsub l_y 1
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	ifnot l_id|=|42 quit
@@ -61,6 +63,15 @@ quit
 #chair
 	cmd tp {click.coords}
 	cmd tpp ~ ~8 ~
+quit
+
+#trash
+	// cpemsg bigannounce &cAre you sure?
+	// cpemsg smallannounce &7Clicking the trash can again will &cdelete all your cards!
+	// cs pos {click.coords} metl open
+	cpemsg bigannounce &7Discarded all cards.
+	cs pos {click.coords} metal clang:skip(0)metl close
+	cmd holdsilent 0
 quit
 
 #drawcard
