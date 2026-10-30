@@ -81,6 +81,7 @@ quit
 	setsub cardcount 1
 	if cardcount|=|1 localmsg announce &eUNO! @color@nick&7 played a {l_card.name}
 	else localmsg announce @color@nick&7 played a {l_card.name}
+	else localcs me hit by energy
 	if cardcount|=|0 call #winner
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setsub cards[{l_card.id}] 1
