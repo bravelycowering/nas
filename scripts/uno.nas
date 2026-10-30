@@ -31,7 +31,7 @@ quit
 #input
 	set l_i 0
 	#input.invloop
-		if cards[{l_i}]|==|0 jump #input.invloop.endif
+		if cards[{l_i}]|<=|0 jump #input.invloop.endif
 			call #getcard|l_card|{l_i}
 			msg - {l_card.name}&7 (x{cards[{l_i}]})
 		#input.invloop.endif
