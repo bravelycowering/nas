@@ -20,10 +20,23 @@ using no_runarg_underscore_conversion
 	// standard deck
 	set DECK.STANDARD 0,0,48,48,96,96,144,144,1,1,49,49,97,97,145,145,2,2,50,50,98,98,146,146,3,3,51,51,99,99,147,147,4,4,52,52,100,100,148,148,5,5,53,53,101,101,149,149,6,6,54,54,102,102,150,150,7,7,55,55,103,103,151,151,8,8,56,56,104,104,152,152,9,57,105,153,10,10,58,58,106,106,154,154,11,11,59,59,107,107,155,155,12,12,60,60,108,108,156,156,207,207,207,207,205,205,205,205
 	// cards list
-	call #createdeck|cards|DECK.STANDARD
+	call #createdeck|deckcards|DECK.STANDARD
 	// vars
 	set drawninarow 0
 	set lasttrashclick 0
+	set cardcount 0
+	cpemsg bot1 Cards: {cardcount}
+quit
+
+#input
+	set l_i 0
+	#input.invloop
+		if cards[{l_i}]|==|0 jump #input.invloop.endif
+			call #getcard|l_card|{l_i}
+			msg - {l_card.name}&7 (x{cards[{l_i}]})
+		#input.invloop.endif
+		setadd l_i 1
+	if l_i|<|240 jump #input.invloop
 quit
 
 #onclientaction
@@ -40,6 +53,7 @@ quit
 	ifnot l_id|=|42 setsub l_y 1
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	ifnot l_id|=|42 quit
+// PLAY CARD FUNCTIONALITY
 	setadd l_y 1
 	setblockid l_id {click.coordsX} {l_y} {click.coordsZ}
 	set l_coords {click.coordsX} {l_y} {click.coordsZ}
@@ -49,12 +63,15 @@ quit
 	if l_card.id|=|"" quit
 	call #getcardscompatible|l_allow|l_prev|l_card
 	ifnot l_allow jump #cantplacethat
+	if cards[{l_card.id}]|<=|0 jump #donthaveany
 	// msg ID: {l_card.id} (item: {l_card.item}, block: {l_card.block})
 	// msg COLOR: {l_card.color}, SYMBOL: {l_card.symbol}
 	// msg NAME: {l_card.name}
 	set drawninarow 0
 	localmsg announce @color@nick&7 played a {l_card.name}
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
+	setsub cardcount 1
+	cpemsg bot1 Cards: {cardcount}
 	setrandrangedecimal l_pitch 0.9 1.1
 	localcs pos {l_coords} ui pagescroll:pitch({l_pitch})
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
@@ -82,24 +99,35 @@ quit
 	cpemsg smallannounce &f
 	cs pos {click.coords} metal clang:skip(0)metl close
 	cmd holdsilent 0
+	set cardcount 0
+	cpemsg bot1 Cards: {cardcount}
+	resetdata packages cards[*]
 quit
 
 #drawcard
 	localcs pos {click.coords} ui bookpagebwd
-	if cards.Length|<=|0 call #createdeck|cards|DECK.STANDARD
-	setsub cards.Length 1
-	set l_card {cards[{cards.Length}]}
+	if deckcards.Length|<=|0 call #createdeck|deckcards|DECK.STANDARD
+	setsub deckcards.Length 1
+	set l_card {deckcards[{deckcards.Length}]}
+	setadd cards[{l_card}] 1
 	call #getcard|l_card|{l_card}
 	setadd drawninarow 1
 	if drawninarow|=|1 localmsg announce @color@nick&7 drew a card
 	else localmsg announce @color@nick&7 drew {drawninarow} cards
-	cpemsg announce if id finished this youd have {l_card.name}
+	cpemsg announce &7You picked up a {l_card.name}
 	cmd holdsilent {l_card.item}
+	setadd cardcount 1
+	cpemsg bot1 Cards: {cardcount}
 quit
 
 #cantplacethat
 	cs me noteblock:choose(8)
 	cpemsg smallannounce &cCan't play that card!
+quit
+
+#donthaveany
+	cs me noteblock:choose(8)
+	cpemsg smallannounce &cYou don't have any of that card!
 quit
 
 // call #createdeck|pkg|type
