@@ -105,8 +105,6 @@ quit
 	if {runArg2}.color|=|{runArg3}.color quit
 	if {runArg2}.color|=|4 quit
 	if {runArg3}.color|=|4 quit
-	if {runArg2}.symbol|=|15 quit
-	if {runArg3}.symbol|=|15 quit
 	set {runArg1} false
 quit
 
