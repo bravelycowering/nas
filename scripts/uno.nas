@@ -25,7 +25,7 @@ using no_runarg_underscore_conversion
 	set drawninarow 0
 	set lasttrashclick 0
 	set cardcount 0
-	cpemsg bot1 Cards: {cardcount}
+	cpemsg bot1 &a/in&f Cards: {cardcount}
 quit
 
 #input
@@ -74,7 +74,7 @@ quit
 	if cardcount|=|0 localmsg announce @color@nick&7 is &fout of cards!
 	placeblock {l_card.block} {click.coordsX} {l_y} {click.coordsZ}
 	setsub cards[{l_card.id}] 1
-	cpemsg bot1 Cards: {cardcount}
+	cpemsg bot1 &a/in&f Cards: {cardcount}
 	setrandrangedecimal l_pitch 0.9 1.1
 	localcs pos {l_coords} ui pagescroll:pitch({l_pitch})
 	if label #coloraction[{l_card.color}] call #coloraction[{l_card.color}]
@@ -103,7 +103,7 @@ quit
 	cs pos {click.coords} metal clang:skip(0)metl close
 	cmd holdsilent 0
 	set cardcount 0
-	cpemsg bot1 Cards: {cardcount}
+	cpemsg bot1 &a/in&f Cards: {cardcount}
 	resetdata packages cards[*]
 	call #createdeck|deckcards|DECK.STANDARD
 quit
@@ -121,7 +121,7 @@ quit
 	cpemsg announce &7You picked up a {l_card.name}
 	cmd holdsilent {l_card.item}
 	setadd cardcount 1
-	cpemsg bot1 Cards: {cardcount}
+	cpemsg bot1 &a/in&f Cards: {cardcount}
 quit
 
 #cantplacethat
