@@ -60,7 +60,7 @@ quit
 
 #onJoin
 	call #setupsongs
-	call #setuprain
+	call #sun
 	ifnot cef jump #endJoin
 	set volumeParameters 18 0.75
 	clickevent sync register #clickevent
